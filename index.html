@@ -1,0 +1,418 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<meta name="description" content="LoanCrack — Free mortgage and loan calculator. Calculate monthly payments, total interest, and amortization schedule instantly."/>
+<meta name="keywords" content="loan calculator, mortgage calculator, monthly payment calculator, amortization calculator, interest calculator, auto loan calculator, personal loan calculator, student loan calculator, mortgage payment, loan repayment"/>
+<meta name="robots" content="index, follow"/>
+<meta name="author" content="LoanCrack"/>
+<link rel="canonical" href="https://loancrack.pro/"/>
+<meta property="og:title" content="LoanCrack — Free Loan & Mortgage Calculator"/>
+<meta property="og:description" content="Calculate your monthly payments, total interest, and full amortization schedule. Free, instant, no signup."/>
+<meta property="og:url" content="https://loancrack.pro/"/>
+<meta property="og:type" content="website"/>
+<meta property="og:site_name" content="LoanCrack"/>
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="LoanCrack — Free Loan & Mortgage Calculator"/>
+<meta name="twitter:description" content="Calculate monthly payments and total interest for any loan. Free and instant."/>
+<title>LoanCrack — Free Loan & Mortgage Calculator</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=DM+Sans:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet"/>
+<!-- Google AdSense -->
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-XXXXXXXXXX" crossorigin="anonymous"></script>
+<!-- Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-XXXXXXXXXX');</script>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=DM+Sans:wght@400;500;600&display=swap');
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --accent:#534AB7;
+  --accent2:#7C6FD4;
+  --accent-light:#EEEDFE;
+  --text:#1a1a2e;
+  --muted:#6b7280;
+  --border:#e5e7eb;
+  --surface:#ffffff;
+  --surface2:#f9fafb;
+  --surface3:#f3f4f6;
+  --danger:#E24B4A;
+  --success:#1D9E75;
+  --radius:14px;
+  --radius-sm:8px;
+  --font:'DM Sans',sans-serif;
+  --display:'Syne',sans-serif;
+}
+body{font-family:var(--font);background:#f0f2f8;color:var(--text);min-height:100vh;font-size:15px;line-height:1.5;}
+
+/* HEADER */
+.site-header{background:var(--surface);border-bottom:1px solid var(--border);padding:0 24px;position:sticky;top:0;z-index:100;display:flex;align-items:center;justify-content:space-between;height:56px;}
+.logo{font-family:var(--display);font-size:22px;font-weight:800;color:var(--text);text-decoration:none;letter-spacing:-0.5px;}
+.logo span{color:var(--accent);}
+.header-nav{display:flex;align-items:center;gap:6px;}
+.nav-chip{font-size:12px;font-weight:500;color:var(--muted);background:var(--surface2);border:1px solid var(--border);border-radius:20px;padding:4px 12px;text-decoration:none;transition:color .2s,border-color .2s;}
+.nav-chip:hover{color:var(--accent);border-color:var(--accent);}
+.wordcrack-link{color:var(--accent);border-color:var(--accent-light);background:var(--accent-light);}
+
+/* AD SLOT */
+.ad-slot{background:var(--surface);border:1px dashed var(--border);border-radius:var(--radius-sm);text-align:center;color:var(--muted);font-size:12px;padding:12px;margin:16px auto;max-width:728px;display:flex;align-items:center;justify-content:center;min-height:90px;}
+
+/* MAIN */
+.main{max-width:960px;margin:0 auto;padding:24px 16px 48px;}
+.hero{text-align:center;margin-bottom:28px;}
+.hero-label{font-size:12px;font-weight:600;color:var(--accent);text-transform:uppercase;letter-spacing:.12em;margin-bottom:8px;}
+.hero-title{font-family:var(--display);font-size:36px;font-weight:800;color:var(--text);line-height:1.1;margin-bottom:8px;letter-spacing:-1px;}
+.hero-title span{color:var(--accent);}
+.hero-sub{font-size:15px;color:var(--muted);}
+
+/* TABS */
+.loan-tabs{display:flex;gap:8px;margin-bottom:20px;flex-wrap:wrap;}
+.loan-tab{padding:8px 18px;border-radius:20px;font-size:13px;font-weight:500;cursor:pointer;border:1.5px solid var(--border);color:var(--muted);background:var(--surface);transition:all .2s;-webkit-appearance:none;}
+.loan-tab.active{background:var(--accent);color:#fff;border-color:var(--accent);}
+.loan-tab:hover:not(.active){border-color:var(--accent2);color:var(--accent);}
+
+/* GRID */
+.calc-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;align-items:start;}
+@media(max-width:680px){.calc-grid{grid-template-columns:1fr;}.hero-title{font-size:28px;}.site-header{padding:0 14px;}}
+
+/* CARD */
+.card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:20px;}
+.card-title{font-size:11px;font-weight:600;color:var(--muted);text-transform:uppercase;letter-spacing:.1em;margin-bottom:18px;}
+
+/* FIELD */
+.field{margin-bottom:18px;}
+.field-header{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:8px;}
+.field-label{font-size:13px;color:var(--muted);font-weight:500;}
+.field-value{font-size:14px;font-weight:700;color:var(--accent);}
+.slider-wrap{position:relative;padding:4px 0;}
+input[type=range]{width:100%;-webkit-appearance:none;appearance:none;height:4px;border-radius:2px;background:var(--border);outline:none;cursor:pointer;}
+input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;appearance:none;width:18px;height:18px;border-radius:50%;background:var(--accent);cursor:pointer;border:2px solid #fff;box-shadow:0 1px 4px rgba(83,74,183,.3);}
+input[type=range]::-moz-range-thumb{width:18px;height:18px;border-radius:50%;background:var(--accent);cursor:pointer;border:2px solid #fff;}
+.slider-labels{display:flex;justify-content:space-between;margin-top:4px;}
+.slider-label{font-size:10px;color:var(--muted);}
+.input-box{display:flex;align-items:center;gap:8px;background:var(--surface2);border:1.5px solid var(--border);border-radius:var(--radius-sm);padding:8px 12px;transition:border-color .2s;}
+.input-box:focus-within{border-color:var(--accent);}
+.input-prefix{font-size:14px;color:var(--muted);font-weight:500;}
+.input-box input{border:none;outline:none;background:transparent;font-family:var(--font);font-size:14px;font-weight:600;color:var(--text);width:100%;}
+.divider{height:1px;background:var(--border);margin:18px 0;}
+
+/* RESULT CARD */
+.monthly-payment{text-align:center;padding:20px 20px 14px;background:var(--accent);border-radius:var(--radius);margin-bottom:14px;position:relative;overflow:hidden;}
+.monthly-payment::before{content:'';position:absolute;inset:0;background:url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.04'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");}
+.monthly-label{font-size:12px;font-weight:600;color:rgba(255,255,255,.7);text-transform:uppercase;letter-spacing:.1em;margin-bottom:6px;}
+.monthly-amount{font-family:var(--display);font-size:42px;font-weight:800;color:#fff;line-height:1;letter-spacing:-1px;}
+.monthly-period{font-size:13px;color:rgba(255,255,255,.7);margin-top:4px;}
+.stat-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:14px;}
+.stat{background:var(--surface2);border-radius:var(--radius-sm);padding:12px;}
+.stat-label{font-size:10px;font-weight:600;color:var(--muted);text-transform:uppercase;letter-spacing:.08em;margin-bottom:4px;}
+.stat-val{font-size:17px;font-weight:700;color:var(--text);}
+.stat-val.danger{color:var(--danger);}
+.stat-val.accent{color:var(--accent);}
+.stat-val.success{color:var(--success);}
+
+/* CHART */
+.chart-card{margin-top:0;}
+.chart-wrap{height:120px;display:flex;align-items:flex-end;gap:2px;margin-bottom:8px;}
+.bar-col{flex:1;display:flex;flex-direction:column;align-items:center;gap:0;}
+.bar-interest{background:#F0997B;border-radius:2px 2px 0 0;width:100%;min-height:1px;}
+.bar-principal{background:var(--accent);border-radius:0;width:100%;min-height:1px;}
+.bar-label{font-size:9px;color:var(--muted);margin-top:3px;}
+.chart-legend{display:flex;gap:14px;justify-content:center;}
+.legend-item{display:flex;align-items:center;gap:5px;font-size:11px;color:var(--muted);}
+.legend-dot{width:9px;height:9px;border-radius:2px;flex-shrink:0;}
+
+/* AMORTIZATION TABLE */
+.amort-toggle{width:100%;padding:10px;background:var(--surface2);border:1px solid var(--border);border-radius:var(--radius-sm);font-family:var(--font);font-size:13px;font-weight:500;color:var(--muted);cursor:pointer;margin-top:14px;transition:all .2s;}
+.amort-toggle:hover{border-color:var(--accent);color:var(--accent);}
+.amort-table-wrap{display:none;margin-top:12px;overflow-x:auto;}
+.amort-table-wrap.open{display:block;}
+table{width:100%;border-collapse:collapse;font-size:12px;}
+th{text-align:left;padding:8px 10px;font-size:10px;font-weight:600;color:var(--muted);text-transform:uppercase;letter-spacing:.06em;border-bottom:1px solid var(--border);}
+td{padding:7px 10px;border-bottom:1px solid var(--surface3);color:var(--text);}
+tr:last-child td{border-bottom:none;}
+tr:hover td{background:var(--surface2);}
+
+/* FOOTER */
+footer{text-align:center;padding:32px 16px;font-size:12px;color:var(--muted);}
+footer a{color:var(--accent);text-decoration:none;}
+.crack-family{display:flex;align-items:center;justify-content:center;gap:8px;margin-top:8px;flex-wrap:wrap;}
+.family-chip{font-size:11px;padding:3px 10px;border-radius:12px;background:var(--accent-light);color:var(--accent);font-weight:600;}
+</style>
+</head>
+<body>
+
+<header class="site-header">
+  <a class="logo" href="/">Loan<span>Crack</span></a>
+  <nav class="header-nav">
+    <a class="nav-chip wordcrack-link" href="https://wordcrack.pro" target="_blank">WordCrack ↗</a>
+  </nav>
+</header>
+
+<div style="max-width:728px;margin:16px auto;padding:0 16px;">
+  <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-XXXXXXXXXX" data-ad-slot="XXXXXXXXXX" data-ad-format="auto" data-full-width-responsive="true"></ins>
+</div>
+
+<main class="main">
+  <div class="hero">
+    <div class="hero-label">Free loan calculator</div>
+    <h1 class="hero-title">Crack your <span>loan payments</span></h1>
+    <p class="hero-sub">Monthly payments, total interest & full amortization — instantly.</p>
+  </div>
+
+  <div class="loan-tabs">
+    <button class="loan-tab active" onclick="setType('mortgage')">🏠 Mortgage</button>
+    <button class="loan-tab" onclick="setType('personal')">💳 Personal Loan</button>
+    <button class="loan-tab" onclick="setType('auto')">🚗 Auto Loan</button>
+    <button class="loan-tab" onclick="setType('student')">🎓 Student Loan</button>
+  </div>
+
+  <div class="calc-grid">
+    <!-- INPUT PANEL -->
+    <div class="card">
+      <div class="card-title">Loan details</div>
+
+      <div class="field" id="field-home-price" style="display:none">
+        <div class="field-header"><span class="field-label">Home price</span><span class="field-value" id="val-home-price">$500,000</span></div>
+        <input type="range" id="sl-home-price" min="50000" max="2000000" step="5000" value="500000" oninput="update()"/>
+        <div class="slider-labels"><span class="slider-label">$50K</span><span class="slider-label">$2M</span></div>
+      </div>
+
+      <div class="field" id="field-down" style="display:none">
+        <div class="field-header"><span class="field-label">Down payment</span><span class="field-value" id="val-down">$100,000 (20%)</span></div>
+        <input type="range" id="sl-down" min="0" max="50" step="1" value="20" oninput="update()"/>
+        <div class="slider-labels"><span class="slider-label">0%</span><span class="slider-label">50%</span></div>
+      </div>
+
+      <div class="field" id="field-amount">
+        <div class="field-header"><span class="field-label" id="label-amount">Loan amount</span><span class="field-value" id="val-amount">$400,000</span></div>
+        <input type="range" id="sl-amount" min="1000" max="1000000" step="1000" value="400000" oninput="update()"/>
+        <div class="slider-labels"><span class="slider-label" id="sl-amount-min">$1K</span><span class="slider-label" id="sl-amount-max">$1M</span></div>
+      </div>
+
+      <div class="field">
+        <div class="field-header"><span class="field-label">Interest rate (APR)</span><span class="field-value" id="val-rate">6.8%</span></div>
+        <input type="range" id="sl-rate" min="0.5" max="20" step="0.1" value="6.8" oninput="update()"/>
+        <div class="slider-labels"><span class="slider-label">0.5%</span><span class="slider-label">20%</span></div>
+      </div>
+
+      <div class="field">
+        <div class="field-header"><span class="field-label">Loan term</span><span class="field-value" id="val-term">30 years</span></div>
+        <input type="range" id="sl-term" min="1" max="30" step="1" value="30" oninput="update()"/>
+        <div class="slider-labels"><span class="slider-label">1 yr</span><span class="slider-label">30 yrs</span></div>
+      </div>
+
+      <div class="divider"></div>
+
+      <div class="field" style="margin-bottom:0">
+        <div class="field-label" style="margin-bottom:8px">Extra monthly payment (optional)</div>
+        <div class="input-box">
+          <span class="input-prefix">$</span>
+          <input type="number" id="extra-payment" value="0" min="0" step="50" oninput="update()" placeholder="0"/>
+        </div>
+      </div>
+    </div>
+
+    <!-- RESULTS PANEL -->
+    <div>
+      <div class="monthly-payment">
+        <div class="monthly-label">Monthly payment</div>
+        <div class="monthly-amount" id="monthly-display">$2,613</div>
+        <div class="monthly-period">per month for <span id="term-display">30</span> years</div>
+      </div>
+
+      <div class="stat-grid">
+        <div class="stat"><div class="stat-label">Total paid</div><div class="stat-val" id="total-paid">$940,680</div></div>
+        <div class="stat"><div class="stat-label">Total interest</div><div class="stat-val danger" id="total-interest">$540,680</div></div>
+        <div class="stat"><div class="stat-label">Loan amount</div><div class="stat-val accent" id="principal-display">$400,000</div></div>
+        <div class="stat"><div class="stat-label">Payoff date</div><div class="stat-val success" id="payoff-date">Jun 2056</div></div>
+      </div>
+
+      <div class="card chart-card">
+        <div class="card-title">Principal vs interest over time</div>
+        <div class="chart-wrap" id="chart-wrap"></div>
+        <div class="chart-legend">
+          <div class="legend-item"><div class="legend-dot" style="background:var(--accent)"></div>Principal</div>
+          <div class="legend-item"><div class="legend-dot" style="background:#F0997B"></div>Interest</div>
+        </div>
+      </div>
+
+      <button class="amort-toggle" id="amort-btn" onclick="toggleAmort()">▼ Show full amortization schedule</button>
+      <div class="amort-table-wrap" id="amort-table-wrap">
+        <table>
+          <thead><tr><th>Year</th><th>Principal</th><th>Interest</th><th>Balance</th></tr></thead>
+          <tbody id="amort-tbody"></tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <!-- BOTTOM AD -->
+  <div style="margin-top:24px;">
+    <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-XXXXXXXXXX" data-ad-slot="XXXXXXXXXX" data-ad-format="auto" data-full-width-responsive="true"></ins>
+  </div>
+</main>
+
+<footer>
+  <p>&copy; 2026 LoanCrack &mdash; Free loan & mortgage calculator &mdash; <a href="https://loancrack.pro">loancrack.pro</a></p>
+  <div class="crack-family" style="margin-top:10px">
+    <span style="font-size:11px;color:var(--muted)">More free tools:</span>
+    <a class="family-chip" href="https://wordcrack.pro" target="_blank">WordCrack</a>
+  </div>
+</footer>
+
+<script>
+var loanType='mortgage';
+
+function setType(t){
+  loanType=t;
+  document.querySelectorAll('.loan-tab').forEach(function(b,i){
+    b.classList.toggle('active',['mortgage','personal','auto','student'][i]===t);
+  });
+  var isMortgage=t==='mortgage';
+  document.getElementById('field-home-price').style.display=isMortgage?'block':'none';
+  document.getElementById('field-down').style.display=isMortgage?'block':'none';
+  document.getElementById('field-amount').style.display=isMortgage?'none':'block';
+  var sl=document.getElementById('sl-amount');
+  var lbl=document.getElementById('label-amount');
+  if(t==='personal'){sl.max=100000;sl.value=Math.min(sl.value,100000);document.getElementById('sl-amount-max').textContent='$100K';lbl.textContent='Loan amount';}
+  else if(t==='auto'){sl.max=150000;sl.value=Math.min(sl.value,150000);document.getElementById('sl-amount-max').textContent='$150K';lbl.textContent='Vehicle price';}
+  else if(t==='student'){sl.max=200000;sl.value=Math.min(sl.value,200000);document.getElementById('sl-amount-max').textContent='$200K';lbl.textContent='Loan amount';}
+  // default term
+  var termSl=document.getElementById('sl-term');
+  if(t==='mortgage')termSl.value=30;
+  else if(t==='auto')termSl.value=5;
+  else if(t==='student')termSl.value=10;
+  else termSl.value=5;
+  update();
+}
+
+function fmt(n){return '$'+Math.round(n).toLocaleString();}
+function fmtM(n){return '$'+n.toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g,',');}
+
+function getPrincipal(){
+  if(loanType==='mortgage'){
+    var hp=+document.getElementById('sl-home-price').value;
+    var dp=+document.getElementById('sl-down').value/100*hp;
+    return hp-dp;
+  }
+  return +document.getElementById('sl-amount').value;
+}
+
+function update(){
+  var rate=+document.getElementById('sl-rate').value;
+  var term=+document.getElementById('sl-term').value;
+  var extra=+document.getElementById('extra-payment').value||0;
+  var principal=getPrincipal();
+
+  // Update display labels
+  document.getElementById('val-rate').textContent=rate.toFixed(1)+'%';
+  document.getElementById('val-term').textContent=term+(term===1?' year':' years');
+  document.getElementById('term-display').textContent=term;
+
+  if(loanType==='mortgage'){
+    var hp=+document.getElementById('sl-home-price').value;
+    var dpPct=+document.getElementById('sl-down').value;
+    var dp=dpPct/100*hp;
+    document.getElementById('val-home-price').textContent=fmt(hp);
+    document.getElementById('val-down').textContent=fmt(dp)+' ('+dpPct+'%)';
+  } else {
+    document.getElementById('val-amount').textContent=fmt(principal);
+  }
+  document.getElementById('principal-display').textContent=fmt(principal);
+
+  var monthly=calcMonthly(principal,rate,term);
+  var monthlyTotal=monthly+extra;
+  document.getElementById('monthly-display').textContent=fmtM(monthly+(extra?extra:0));
+
+  // Build amortization with extra payments
+  var amort=buildAmort(principal,rate,term,extra);
+  var totalPaid=amort.totalPaid;
+  var totalInterest=amort.totalInterest;
+  var actualMonths=amort.months;
+
+  document.getElementById('total-paid').textContent=fmt(totalPaid);
+  document.getElementById('total-interest').textContent=fmt(totalInterest);
+
+  // Payoff date
+  var now=new Date();
+  var payoff=new Date(now.getFullYear(),now.getMonth()+actualMonths,1);
+  var months=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+  document.getElementById('payoff-date').textContent=months[payoff.getMonth()]+' '+payoff.getFullYear();
+
+  renderChart(amort.yearlyData);
+  renderTable(amort.yearlyData);
+}
+
+function calcMonthly(p,annualRate,termYears){
+  var r=annualRate/100/12;
+  var n=termYears*12;
+  if(r===0)return p/n;
+  return p*(r*Math.pow(1+r,n))/(Math.pow(1+r,n)-1);
+}
+
+function buildAmort(principal,annualRate,termYears,extra){
+  var r=annualRate/100/12;
+  var n=termYears*12;
+  var monthly=calcMonthly(principal,annualRate,termYears);
+  var balance=principal;
+  var totalPaid=0,totalInterest=0,months=0;
+  var yearlyData=[];
+  var yearP=0,yearI=0;
+
+  for(var i=1;i<=n&&balance>0;i++){
+    var intPayment=balance*r;
+    var prinPayment=Math.min(monthly-intPayment+extra,balance);
+    if(prinPayment<0)prinPayment=0;
+    balance-=prinPayment;
+    totalPaid+=intPayment+prinPayment;
+    totalInterest+=intPayment;
+    yearP+=prinPayment;yearI+=intPayment;
+    months=i;
+    if(i%12===0||balance<=0){
+      yearlyData.push({year:Math.ceil(i/12),principal:yearP,interest:yearI,balance:Math.max(0,balance)});
+      yearP=0;yearI=0;
+    }
+    if(balance<=0.01)break;
+  }
+  return{totalPaid:totalPaid,totalInterest:totalInterest,months:months,yearlyData:yearlyData};
+}
+
+function renderChart(data){
+  var wrap=document.getElementById('chart-wrap');
+  wrap.innerHTML='';
+  var maxVal=Math.max.apply(null,data.map(function(d){return d.principal+d.interest;}));
+  var chartH=110;
+  // show max 30 bars
+  var step=Math.max(1,Math.floor(data.length/20));
+  var filtered=data.filter(function(_,i){return i%step===0||i===data.length-1;});
+  filtered.forEach(function(d){
+    var total=d.principal+d.interest;
+    var pH=Math.round((d.principal/maxVal)*chartH);
+    var iH=Math.round((d.interest/maxVal)*chartH);
+    var col=document.createElement('div');
+    col.className='bar-col';
+    col.innerHTML='<div class="bar-interest" style="height:'+iH+'px"></div><div class="bar-principal" style="height:'+pH+'px"></div><div class="bar-label">'+d.year+'</div>';
+    wrap.appendChild(col);
+  });
+}
+
+function renderTable(data){
+  var tb=document.getElementById('amort-tbody');
+  tb.innerHTML=data.map(function(d){
+    return '<tr><td>'+d.year+'</td><td style="color:var(--accent);font-weight:500">'+fmt(d.principal)+'</td><td style="color:var(--danger)">'+fmt(d.interest)+'</td><td>'+fmt(d.balance)+'</td></tr>';
+  }).join('');
+}
+
+function toggleAmort(){
+  var wrap=document.getElementById('amort-table-wrap');
+  var btn=document.getElementById('amort-btn');
+  var open=wrap.classList.toggle('open');
+  btn.textContent=(open?'▲ Hide':'▼ Show')+' full amortization schedule';
+}
+
+// Init
+setType('mortgage');
+</script>
+</body>
+</html>
