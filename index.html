@@ -138,6 +138,10 @@ footer{text-align:center;padding:32px 16px;font-size:12px;color:var(--muted);}
 footer a{color:var(--accent);text-decoration:none;}
 .crack-family{display:flex;align-items:center;justify-content:center;gap:8px;margin-top:8px;flex-wrap:wrap;}
 .family-chip{font-size:11px;padding:3px 10px;border-radius:12px;background:var(--accent-light);color:var(--accent);font-weight:600;}
+
+.lc-online{display:inline-flex;align-items:center;gap:6px;font-size:12px;font-weight:600;color:var(--accent);background:var(--accent-light);border-radius:12px;padding:4px 12px;margin-bottom:8px;}
+.lc-online-dot{width:6px;height:6px;border-radius:50%;background:#16a34a;animation:lcpulse 2s infinite;}
+@keyframes lcpulse{0%,100%{opacity:1}50%{opacity:.4}}
 </style>
 </head>
 <body>
@@ -160,7 +164,8 @@ footer a{color:var(--accent);text-decoration:none;}
     <p class="hero-sub">Monthly payments, total interest & full amortization — instantly.</p>
   </div>
 
-  <div class="loan-tabs">
+  <div class="lc-online"><div class="lc-online-dot"></div><span id="lc-visitor-count">...</span> people online now</div>
+<div class="loan-tabs">
     <button class="loan-tab active" onclick="setType('mortgage')">🏠 Mortgage</button>
     <button class="loan-tab" onclick="setType('personal')">💳 Personal Loan</button>
     <button class="loan-tab" onclick="setType('auto')">🚗 Auto Loan</button>
@@ -413,6 +418,36 @@ function toggleAmort(){
 
 // Init
 setType('mortgage');
+
+// ── REAL VISITOR COUNTER ──────────────────────────────────────────
+(function(){
+  var SURL='https://mjnigheggxtythytsqle.supabase.co';
+  var SKEY='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im1qbmlnaGVnZ3h0eXRoeXRzcWxlIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODAwNzYwMDcsImV4cCI6MjA5NTY1MjAwN30.mh1psePuKeQ8SH5uita7BsUKd6wd5IwHVVlDmJCMA0Q';
+  function sf(path, opts){
+    return fetch(SURL+'/rest/v1/'+path, Object.assign({
+      headers:{'apikey':SKEY,'Authorization':'Bearer '+SKEY,'Content-Type':'application/json','Prefer':'return=minimal'}
+    }, opts||{}));
+  }
+  // Track visit
+  sf('loancrack_visits', {method:'POST', body:JSON.stringify({})});
+  // Count last 5 mins
+  function updateCount(){
+    var since=new Date(Date.now()-5*60*1000).toISOString();
+    sf('loancrack_visits?created_at=gte.'+since+'&select=id', {
+      headers:{'apikey':SKEY,'Authorization':'Bearer '+SKEY,'Prefer':'count=exact','Range-Unit':'items','Range':'0-0'}
+    }).then(function(r){
+      var count=r.headers.get('content-range');
+      if(count){
+        var total=parseInt(count.split('/')[1])||0;
+        var el=document.getElementById('lc-visitor-count');
+        if(el&&total>0)el.textContent=total;
+      }
+    }).catch(function(){});
+  }
+  updateCount();
+  setInterval(updateCount, 60000);
+})();
+
 </script>
 </body>
 </html>
